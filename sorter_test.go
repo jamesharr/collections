@@ -18,7 +18,8 @@ var samples = []Person{
 }
 
 func TestSort_fields(t *testing.T) {
-	slc := collections.Copy(samples).([]Person)
+	slc := make([]Person, len(samples))
+	copy(samples, slc)
 
 	s := collections.Sorter{}
 
