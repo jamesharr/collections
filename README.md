@@ -2,7 +2,7 @@
 
 [![build status](https://secure.travis-ci.org/jamesharr/collections.png)](http://travis-ci.org/jamesharr/collections)
 
-A small library that does nasty things with reflection to help you avoid repetition.
+A small library that does nasty things with reflection as an API experiment.
 
 ## Highlights
 
