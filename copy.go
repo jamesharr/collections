@@ -6,35 +6,14 @@ import (
 
 // Copy() makes a shallow copy of an array, slice, or map
 func Copy(src interface{}) interface{} {
-	srcValue := r.ValueOf(src)
-	srcType := srcValue.Type()
-
-	// Check type
-	kind := srcValue.Kind()
-	if kind != r.Array && kind != r.Slice && kind != r.Map {
-		panic("Copy(src): src must be an array, slice, or map.")
-	}
-
 	// Make new container
-	dstValue := r.Indirect(r.New(srcType))
+	dstPtrValue := r.New(r.TypeOf(src))
 
-	// Copy items
-	if kind == r.Map {
-		dstValue.Set(r.MakeMap(srcType))
-		for _, key := range srcValue.MapKeys() {
-			value := srcValue.MapIndex(key)
-			dstValue.SetMapIndex(key, value)
-		}
-	} else {
-		srcLen := srcValue.Len()
-		dstValue.Set(r.MakeSlice(srcType, srcLen, srcLen))
-		for i := 0; i < srcLen; i++ {
-			dstValue.Index(i).Set(srcValue.Index(i))
-		}
-	}
+	// Copy
+	CopyInto(src, dstPtrValue.Interface())
 
 	// Return dest
-	return dstValue.Interface()
+	return r.Indirect(dstPtrValue).Interface()
 }
 
 // CopyInto() copies+converts a src array, slice, or map into a destination.

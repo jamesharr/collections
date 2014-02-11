@@ -43,12 +43,12 @@ func TestCopy_map(t *testing.T) {
 }
 
 func TestCopy_badType1(t *testing.T) {
-	defer expectPanic(t, "src must be an array, slice, or map.")
+	defer expectPanic(t, "src must be an array, slice, or map")
 	Copy(5)
 }
 
 func TestCopy_badType2(t *testing.T) {
-	defer expectPanic(t, "src must be an array, slice, or map.")
+	defer expectPanic(t, "src must be an array, slice, or map")
 	exp := []int{1, 2, 3}
 	Copy(&exp)
 }
