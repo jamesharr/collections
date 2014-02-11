@@ -1,10 +1,10 @@
 package collections
 
 import (
-	"reflect"
-	"sort"
 	"fmt"
+	"reflect"
 	"regexp"
+	"sort"
 	"strconv"
 )
 
@@ -141,8 +141,8 @@ func (s sorter) Less(a, b int) bool {
 
 /* Natural sort (aka human sort)
 
- 2.10 < 2.3 < 10.1
- */
+2.10 < 2.3 < 10.1
+*/
 type NaturalComparator struct{}
 
 func (NaturalComparator) Less(a, b interface{}) bool {
@@ -180,10 +180,10 @@ func (NaturalComparator) PrepareKeys(keys []interface{}) {
 
 /* Version sorter
 
- Similar to natural comparator, except there's no floating point tokens, just integers.
+Similar to natural comparator, except there's no floating point tokens, just integers.
 
- 2.3 < 2.10 < 10.1
- */
+2.3 < 2.10 < 10.1
+*/
 type VersionComparator struct{}
 
 func (VersionComparator) Less(a, b interface{}) bool {
@@ -215,11 +215,13 @@ func (StringComparator) PrepareKeys(keys []interface{}) {
 }
 
 type equality uint8
+
 func (e equality) Less() bool {
 	return e == less
 }
+
 const (
-	less    = equality(iota)
+	less = equality(iota)
 	equal
 	greater
 )
@@ -255,7 +257,7 @@ func floatCompare(a, b float64) equality {
 func genericCompare(a, b interface{}) equality {
 	if aStr, ok := a.(string); ok {
 		if bStr, ok := b.(string); ok {
-			return stringCompare(aStr,bStr)
+			return stringCompare(aStr, bStr)
 		} else if _, ok := b.(int64); ok {
 			// Numbers are always less than strings
 			return less
@@ -265,7 +267,7 @@ func genericCompare(a, b interface{}) equality {
 		}
 	} else if aInt, ok := a.(int64); ok {
 		if bInt, ok := b.(int64); ok {
-			return intCompare(aInt,bInt)
+			return intCompare(aInt, bInt)
 		} else if bFloat, ok := b.(float64); ok {
 			return floatCompare(float64(aInt), bFloat)
 		} else if _, ok := b.(string); ok {
@@ -274,7 +276,7 @@ func genericCompare(a, b interface{}) equality {
 		}
 	} else if aFloat, ok := a.(float64); ok {
 		if bInt, ok := b.(int64); ok {
-			return floatCompare(aFloat,float64(bInt))
+			return floatCompare(aFloat, float64(bInt))
 		} else if bFloat, ok := b.(float64); ok {
 			return floatCompare(aFloat, bFloat)
 		} else if _, ok := b.(string); ok {
@@ -290,8 +292,9 @@ func genericCompare(a, b interface{}) equality {
 }
 
 var humanTokenizerRegexp = regexp.MustCompile(`(\d+\.\d+|\d+|\D+)`)
+
 func humanTokenizer(s string) []interface{} {
-	tokens := humanTokenizerRegexp.FindAllString(s,-1)
+	tokens := humanTokenizerRegexp.FindAllString(s, -1)
 	rv := make([]interface{}, 0, len(tokens))
 	for _, t := range tokens {
 		rv = append(rv, autoStrConv(t))
@@ -300,8 +303,9 @@ func humanTokenizer(s string) []interface{} {
 }
 
 var versionTokenizerRegexp = regexp.MustCompile(`(\d+|\D+)`)
+
 func versionTokenizer(s string) []interface{} {
-	tokens := versionTokenizerRegexp.FindAllString(s,-1)
+	tokens := versionTokenizerRegexp.FindAllString(s, -1)
 	rv := make([]interface{}, 0, len(tokens))
 	for _, t := range tokens {
 		rv = append(rv, autoStrConv(t))

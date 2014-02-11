@@ -24,7 +24,7 @@ func TestSort_fields(t *testing.T) {
 
 	// s.By(func(a interface{})interface{}{
 	//    return a.(Person).Room
-    // })
+	// })
 	s.ByField("Room")
 
 	// Value sort (default): compare normal types
