@@ -23,7 +23,12 @@ src := []int{1, 2, 3}
 var dst []float32
 CopyInto(src, &dst)
 
-// Copy a slice, conver the tyep
+// or not
+src := []int{1, 2, 3}
+var dst []int
+CopyInto(src, &dst)
+
+// Copy a slice, convert the type
 type Foo int
 func (f Foo) SayHi() {
 	fmt.Println("Hello ", f)
@@ -51,5 +56,8 @@ If performance or type saftey are your goals, you may want to look somewhere els
 
 Yes, This library does disgusting things with reflection. It's going to be slower than
 writing things by hand and/or using type assertions. It's not my intention to build a
-dynamic language with Go. My intention is to reduce the number of alloce+copy+cast
+dynamic language with Go. My intention is to reduce the number of alloc+copy+cast
 loops I need to write while throwing together small demo apps.
+
+I would much rather do all this with type safety, but in its current revision, Go does
+not facilitate this, so I must resort to reflection.
