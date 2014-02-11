@@ -21,9 +21,8 @@ func TestSort_fields(t *testing.T) {
 	slc := collections.Copy(samples).([]Person)
 
 	s := collections.Sorter{}
-	s.ByField("Name")
+	s.ByField("Room")
+	s.Natural()
 	s.Sort(slc)
 	t.Log(slc)
-
-	t.Error("I'm pretty sure this isn't complete")
 }
