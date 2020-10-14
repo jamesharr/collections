@@ -1,3 +1,7 @@
+# PROJECT STATUS
+
+This project should not be used in production. Feel free to examine this code for reference and/or use it if you dare. It's probably not a good idea though because it's not very Go-like.
+
 # Collection routines for Go
 
 [![build status](https://secure.travis-ci.org/jamesharr/collections.png)](http://travis-ci.org/jamesharr/collections)
